@@ -1,0 +1,33 @@
+<div class="container-fluid mt-3">
+    
+    <div *ngIf='nodata'>
+        <pre class="nodata text-muted">OOPS... NO BLOGS TO DISPLAY</pre>
+    </div>
+
+    <div *ngIf="load" id='load'>
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+    <div class="container" *ngFor="let post of allposts">
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <h2>{{post.blogTitle+' '}}</h2>
+                <small>
+                    <span class="text-info ml-2">{{post.category}}</span>
+                    <span class="text-muted ml-2">@{{post.userName}}</span>
+                    <span class="text-muted ml-2">{{post.postdate}}</span>
+                    <b class="ml-auto m-1 text-success"><i class="fa fa-check"></i></b>
+                </small>
+            </div>
+        </div>
+        <div>
+            <p class="mt-2" [innerHTML]="post.description"></p>
+            <div>
+                <button mat-stroked-button type="button" (click)='gotoviewpost(post.blogId)'>Read more</button>
+            </div>
+        </div>
+        <hr>
+    </div>
+</div>

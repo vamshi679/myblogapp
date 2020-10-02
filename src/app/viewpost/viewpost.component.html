@@ -1,0 +1,69 @@
+<div class="container mt-4">
+    <mat-card>
+        <div *ngFor="let post of allposts">
+            <div class="row mt-2">
+                <div class="col-md-12">
+                    <h1>{{post.blogTitle+' '}}</h1>
+                    <small>
+                        <span class="text-info ml-2">{{post.category}}</span>
+                        <span class="text-muted ml-2">@{{post.userName}}</span>
+                        <span class="text-muted ml-2">{{post.postdate}}</span>
+                        <b class="ml-auto m-2 text-success"><i class="fa fa-check"></i></b>
+                    </small>
+                </div>
+            </div>
+            <hr>
+            <div class="mt-2">
+                <p [innerHTML]="post.description"></p>
+                <div class="ml-2">
+                    <button matTooltip="Like" class="btn rounded-pill btn-outline-light btn-sm text-dark">
+                        <i class="fa fa-lg" id="heart" [ngClass]="{'fa-heart-o' : !hide, 'fa-heart' : hide}"
+                            (click)="addLike(post)"></i> <span>{{' '+count+' '}}likes</span>
+                    </button>
+
+                    <button matTooltip="Save Post"
+                        class="btn btn-outline-light btn-sm rounded-pill text-dark ml-1 float-right">
+                        <i class="fa fa-lg" aria-hidden="true"
+                            [ngClass]="{'fa-bookmark-o' : !hide1, 'fa-bookmark' : hide1}" (click)="addToSave()"></i>
+                    </button>
+                    <button class="btn rounded-pill btn-outline-light btn-sm text-dark" (click)='share()'><i class="fa fa-share"
+                            aria-hidden="true"></i>
+                        share</button>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+
+    <mat-card class="mt-2">
+        <h1 class="d-block m-1">{{comments.length+' '}}Comments</h1>
+        <form #reff="ngForm" (ngSubmit)="onClick(reff.value);reff.reset();" class="m-1">
+            <mat-form-field>
+                <mat-label class="text-muted">comment this post</mat-label>
+                <input matInput type="text" name="body" ngModel>
+            </mat-form-field>
+            <button mat-icon-button type="submit">
+                <mat-icon aria-hidden="false">send</mat-icon>
+            </button>
+        </form>
+        <!-- all the comments will display -->
+        <div class="media mb-1" id="media" *ngFor="let item of comments">
+            <img class="mr-3 img-fluid" [src]=imgURL alt="Generic placeholder image"
+                style="height: 45px; width: 45px; border-radius: 50%;">
+            <div class="media-body">
+                <h3 class="mt-0">{{item.loggedUser}}<b class="text-muted">{{' '+item.commentTime}}</b></h3>
+                {{item.body}}
+                <h3 class="mt-2 text-muted">
+                    <button mat-icon-button matTooltip="up-vote">
+                        <mat-icon>keyboard_arrow_up</mat-icon>
+                    </button>
+                    <button mat-icon-button matTooltip="down-vote">
+                        <mat-icon>keyboard_arrow_down</mat-icon>
+                    </button>
+                    <button mat-icon-button matTooltip="reply" matTooltipPosition='right'>reply</button>
+                </h3>
+            </div>
+        </div>
+    </mat-card>
+</div>
+
+

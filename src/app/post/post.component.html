@@ -1,0 +1,47 @@
+<style>
+    mat-form-field {
+        width: 100%;
+    }
+</style>
+
+
+<div class="container mt-5"> 
+
+    <div class="mt-5 d-flex justify-content-center">
+        <div class="col-md-8 col-12">
+            <mat-card>
+                <mat-card-title class="text-center font-weight-light">Create new post</mat-card-title>
+                <hr>
+                <form #ref="ngForm" (ngSubmit)="addPost(ref.value);ref.reset();">
+                    <div>
+                        <mat-form-field appearance='outline'>
+                            <mat-label>CATEGORY</mat-label>
+                            <mat-select required name="category" ngModel>
+                                <mat-option value="general">General</mat-option>
+                                <mat-option value="technical">Science & Technology</mat-option>
+                                <mat-option value="political">Political</mat-option>
+                                <mat-option value="fiction">Fiction</mat-option>
+                                <mat-option value="movies">Movies</mat-option>
+                                <mat-option value="health">Health</mat-option>
+                                <mat-option value="facts">Facts</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field appearance='outline'>
+                            <mat-label>Title</mat-label>
+                            <input matInput type="text" required name="blogTitle" placeholder="Title" ngModel>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                        <label class="post-content ml-1">Body</label>
+                        <editor matInput required name="description" ngModel></editor>
+                    </div>
+                    <div class="mt-2">
+                        <button type="submit" [disabled]=ref.invalid mat-raised-button color="primary">Post</button>
+                    </div>
+                </form>
+            </mat-card>
+        </div>
+    </div>
+</div>

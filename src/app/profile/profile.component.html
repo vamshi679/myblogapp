@@ -1,0 +1,182 @@
+<style>
+    input[type="submit"]::-moz-focus-inner,
+    input[type="button"]::-moz-focus-inner {
+        border: 0;
+    }
+
+    :focus {
+        outline: none;
+    }
+
+    ::-moz-focus-inner {
+        border: 0;
+    }
+
+    h1 {
+        font-size: 20px;
+        display: inline-block;
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    .aboutuser,
+    .usertimeline {
+        line-height: 1rem;
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    .row,
+    .col-md-4 {
+        margin-top: 5px;
+    }
+
+    label{
+        color: gray;
+    }
+
+    mat-card,
+    button,
+    mat-tab {
+        font-family: 'Quicksand', sans-serif;
+    }
+</style>
+
+<div class="container-fluid">
+
+    <div class="container mt-3"> 
+        <div class="row d-flex justify-content-around">
+            <div class="col-md-3 mt-2">
+                <mat-card>
+                    <img mat-card-image class="" [src]=imgURL alt="placeholder">
+                    <!-- <img mat-card-image class="" [src]=imgURL alt="placeholder">
+                    <mat-card-actions style="overflow: hidden;">
+                        <button mat-button>
+                            <input type="file" name="profileImg" (change)='selectImage($event.target.files[0])'>
+                        </button>
+                        <button mat-button type="button" class="text-success">Save Changes</button>
+                    </mat-card-actions> -->
+                </mat-card>
+            </div>
+            <div class="col-md-8 mt-2">
+                <div class="row p-3">
+                    <div class="col d-flex justify-content-between align-items-center">
+                        <h1>{{userdetails.userName}}</h1>
+                        <button mat-stroked-button class="rounded-pill" (click)=logout()>Logout</button>
+                    </div>
+                </div>
+                <mat-tab-group dynamicHeight animationDuration="0ms">
+                    <mat-tab label='About'>
+                        <div class="aboutuser">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>User Id</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>{{userdetails.userName}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Usertype</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>{{userdetails.userType}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Name</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>{{userdetails.userName}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Email</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>{{userdetails.emailId}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Phone</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>123 456 7890</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Profession</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>Web Developer and Designer</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Account Created</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>{{userdetails.createdon}}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </mat-tab>
+                    <mat-tab label='Timeline'>
+                        <div class="usertimeline">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Activity</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>Expert</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Posts Quality</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>Good</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Total Posts</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>10</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>saved Posts</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>6</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Approved Posts</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>6</p>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label='settings'>
+                        Settings menu
+                    </mat-tab>
+                    <mat-tab label='Edit profile'>
+                        profile edit panel
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </div>
+    </div>
+</div>

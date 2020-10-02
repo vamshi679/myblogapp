@@ -1,0 +1,182 @@
+<style>
+    input[type="submit"]::-moz-focus-inner,
+    input[type="button"]::-moz-focus-inner {
+        border: 0;
+    }
+
+    :focus {
+        outline: none;
+    }
+
+    ::-moz-focus-inner {
+        border: 0;
+    }
+
+    h2 {
+        display: inline-block;
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    span,
+    h2 {
+        font-family: 'Quicksand', sans-serif;
+        padding: 5px;
+    }
+
+    small {
+        font-size: 12px;
+    }
+
+    p {
+        font-size: 16px;
+        text-align: justify;
+        line-height: 1.6em;
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    #nodata {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    h3 {
+        font-size: 16px;
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    #load {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    @media screen and (max-width:480px) {
+        #row {
+            display: flex;
+            justify-content: space-between;
+        }
+        mat-icon{
+            color: darkgrey;
+        }
+    }
+</style>
+
+<div class="container-fluid">
+
+    <div class="" *ngIf="load" id='load'>
+        <div class="spinner-border" role="status">
+        </div>
+    </div>
+
+    <div class="row p-2 shadow-sm" id="row">
+        <div class="container d-none d-md-block">
+            <div class="d-flex justify-content-end ">
+                <button mat-button class="mr-1" routerLink='/blogs'>Blogs</button>
+                <button mat-button class="mr-1" type="button" routerLink='/savedposts'>Saved Posts</button>
+                <button mat-button class="mr-1" type="button">Comments</button>
+                <button mat-button [matMenuTriggerFor]='userMenu'>{{userName}} <mat-icon>
+                        keyboard_arrow_down</mat-icon> </button>
+                <img [src]=imgURL class="d-none d-md-block" alt="profile pic"
+                    style="background-size: cover; height: 45px; width: 45px; border-radius: 50%;">
+                <mat-menu #userMenu='matMenu' xPosition='before'>
+                    <button mat-menu-item type="button" routerLink='/profile'>Profile</button>
+                    <button mat-menu-item type="button" (click)="logout()">Logout</button>
+                    <button mat-menu-item type="button" >Help</button>
+                    <button mat-menu-item type="button" >FAQ</button>
+                </mat-menu>
+            </div>
+        </div>
+        <div class="container d-block d-md-none">
+            <div class="d-flex justify-content-between">
+                <button mat-icon-button class="m-1" routerLink='/blogs' matTooltip="Blogs">
+                    <mat-icon>article</mat-icon>
+                </button>
+                <button mat-icon-button class="m-1" routerLink='/savedposts' matTooltip="Saved Posts">
+                    <mat-icon>bookmarks</mat-icon>
+                </button>
+                <button mat-icon-button class="m-1" routerLink='/blogs' matTooltip="My Comments">
+                    <mat-icon>comment</mat-icon>
+                </button>
+                <img [src]=imgURL class="m-1" alt="profile pic" routerLink='/profile' matTooltip="Profile"
+                    style="background-size: cover; height: 45px; width: 45px; border-radius: 50%;">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container mt-5" *ngIf="nodata">
+        <h3 class="text-muted" id="nodata">
+            Hello <b>{{userName}}</b>, Welcome<br>
+        </h3>
+        <pre class="mt-5 text-muted" id="nodata">OOPS.. NO POSTS TO DISPLAY,<a routerLink='/post'>create new</a></pre>
+    </div>
+
+
+
+    <div class="container" *ngIf="View">
+        <div class="content m-3" *ngFor="let post of allposts">
+            <div class="row mt-2">
+                <div class="col-md-12">
+                    <h2 class="">{{post.blogTitle}}</h2>
+                    <small>
+                        <span class="text-info ml-1">{{post.category}}</span>
+                        <span class="text-muted ml-1">{{post.postdate}}</span>
+                        <b class="ml-auto ml-1 text-success" tyle="border-radius: 15px;"><i class="fa fa-check"></i></b>
+                    </small>
+                </div>
+            </div>
+            <div class="mt-2">
+                <p [innerHTML]="post.description"></p>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button mat-button color="primary" type="button" class="float-right ml-1"
+                            (click)="openEdit(post)">edit</button>
+                        <button mat-button color="warn" type="button" class="float-right"
+                            (click)="remove(post.blogId)">remove</button>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+
+
+    <div class="container" *ngIf="Edit">
+        <h2 class="text-center mt-3">Edit your post</h2>
+        <hr>
+        <form #ref="ngForm" (ngSubmit)="updatePost(ref.value)">
+            <div>
+                <label for="">Select category</label>
+                <select class="custom-select" name="category" [ngModel]=dataRefill.category>
+                    <option selected>Open this select menu</option>
+                    <option value="general">General</option>
+                    <option value="technical">Science & Technology</option>
+                    <option value="political">Political</option>
+                    <option value="candt">Customs & Traditions</option>
+                    <option value="fiction">Fiction</option>
+                    <option value="movies">Movies</option>
+                    <option value="health">Health</option>
+                </select>
+            </div>
+            <div>
+                <div class="mt-1">
+                    <label>Title</label>
+                    <input class="form-control" type="text" name="blogTitle" placeholder="Title"
+                        [ngModel]=dataRefill.blogTitle>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="post-content ml-1">Body</label>
+                <editor matInput name="description" [ngModel]=dataRefill.description></editor>
+            </div>
+            <div class="mt-2">
+                <button mat-stroked-button (click)="openView()">Back</button>
+                <button mat-stroked-button type="submit" class="text-primary ml-1">Save changes</button>
+            </div>
+        </form>
+    </div>
+
+</div>

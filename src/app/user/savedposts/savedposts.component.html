@@ -1,0 +1,122 @@
+<style>
+    input[type="submit"]::-moz-focus-inner,
+    input[type="button"]::-moz-focus-inner {
+        border: 0;
+    }
+
+    :focus {
+        outline: none;
+    }
+
+    ::-moz-focus-inner {
+        border: 0;
+    }
+
+    h1,
+    h3,
+    mat-panel-title {
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    span,
+    h2 {
+        font-family: 'Quicksand', sans-serif;
+        padding: 5px;
+    }
+
+    small {
+        font-size: 12px;
+    }
+
+    p {
+        font-size: 16px;
+        text-align: justify;
+        line-height: 1.6em;
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    #nodata {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    #load {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    mat-icon {
+        color: rgb(122, 121, 121);
+    }
+</style>
+
+<div class="container-fluid">
+
+    <div class="container mt-5" *ngIf="nodata">
+        <pre class="mt-5 text-muted" id="nodata">OOPS.. NO POSTS TO DISPLAY,<a routerLink='/post'>create new</a></pre>
+    </div>
+
+    <div class="row p-2 shadow-sm d-md-none" id="row">
+        <div class="container">
+            <div class="d-flex justify-content-between">
+                <button mat-button class="m-1" routerLink='/blogs'>
+                    <mat-icon>article</mat-icon>
+                </button>
+                <button mat-button class="m-1" type="button" routerLink='/savedposts'>
+                    <mat-icon>bookmarks</mat-icon>
+                </button>
+                <button mat-button class="m-1" type="button">
+                    <mat-icon>comment</mat-icon>
+                </button>
+                <img [src]=imgURL class="m-1" alt="profile pic" routerLink='/profile' matTooltip="Profile"
+                    style="background-size: cover; height: 45px; width: 45px; border-radius: 50%;">
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-2 mb-2" *ngIf="nodata1">
+        <div class="row p-1">
+            <div class="col-md-9 mt-4">
+                <h3 class="text-center">saved posts listed Below</h3>
+                <mat-expansion-panel class="mt-3 mb-2 text-center" *ngFor='let item of savedlist'>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            {{item.blogTitle}}
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            {{item.category}}
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <p [innerHTML]="item.description"></p>
+                    <mat-action-row>
+                        <button mat-button color='warn'>Delete</button>
+                    </mat-action-row>
+                </mat-expansion-panel>
+
+            </div>
+            <div class="col-md-3 mt-4 d-none d-md-block" style="border-radius: 5px;">
+                <div class="sticky-top mt-3">
+                    <mat-list>
+                        <mat-list-item>
+                            <button mat-menu-item class="m-1" routerLink='/blogs'>Blogs</button>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <button mat-menu-item class="m-1" routerLink='#'>Create</button>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <button mat-menu-item class="m-1" type="button"
+                                routerLink='/userdashboard'>Dashboard</button>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <button mat-menu-item class="m-1" type="button">Comments</button>
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

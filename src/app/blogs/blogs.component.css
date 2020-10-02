@@ -1,0 +1,50 @@
+input[type="submit"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner {
+    border: 0;
+}
+
+:focus {
+    outline: none;
+}
+
+::-moz-focus-inner {
+    border: 0;
+}
+
+h2 {
+    display: inline-block;
+    font-family: 'Quicksand', sans-serif;
+}
+
+p {
+    font-size: 16px;
+    text-align: justify;
+    line-height: 1.6em;
+    font-family: 'Quicksand', sans-serif;
+}
+
+/* div.sticky {
+    position: sticky;
+    top: 50px;
+    z-index: 1;
+    background: inherit;
+    background: rgb(248, 246, 246);
+} */
+
+#load {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-60%, -50%);
+}
+
+small {
+    font-size: 12px;
+    font-family: 'Quicksand', sans-serif; 
+}
+
+.nodata {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

@@ -1,0 +1,125 @@
+<style>
+    input[type="submit"]::-moz-focus-inner,
+    input[type="button"]::-moz-focus-inner {
+        border: 0;
+    }
+
+    :focus {
+        outline: none;
+    }
+
+    ::-moz-focus-inner {
+        border: 0;
+    }
+
+    mat-sidenav-container {
+        height: 100vh;
+    }
+
+    /* @media screen and (max-width:480px) {
+        mat-sidenav-container {
+            height: 150%;
+        }
+    } */
+
+    mat-sidenav,
+    mat-sidenav-content {
+        font-family: "Quicksand", sans-serif;
+    }
+
+    mat-sidenav a {
+        background: white;
+        width: 180px;
+        text-decoration: none;
+    }
+
+    .spacer {
+        flex: 1 1 auto;
+    }
+
+    mat-toolbar {
+        top: 0;
+        position: sticky;
+        background: inherit;
+        z-index: 1;
+        padding: none;
+        margin: none;
+    }
+
+    mat-toolbar a {
+        display: inline-block;
+        margin: 0 10px;
+        color: darkslategrey;
+        text-decoration: none;
+        font-family: "Quicksand", sans-serif;
+        font-size: 18px;
+    }
+
+    mat-nav-list {
+        margin-top: 150px;
+    }
+
+    mat-icon {
+        margin-right: 10px;
+    }
+</style>
+
+
+<mat-sidenav-container>
+    <mat-sidenav #drawer fixedTopGap='0' fixedBottomGap='0'>
+        <mat-nav-list>
+            <a mat-list-item routerLink='home'>
+                <mat-icon>home</mat-icon>Home
+            </a>
+            <a mat-list-item routerLink="blogs" routerLinkActive="active">
+                <mat-icon>article</mat-icon> Blogs
+            </a>
+            <a mat-list-item routerLink="post" routerLinkActive="active">
+                <mat-icon>create</mat-icon>Create
+            </a>
+            <a mat-list-item (click)='todash()' routerLinkActive="active" *ngIf="_gs.loggedIn()">
+                <mat-icon>dashboard</mat-icon>Dashboard
+            </a>
+            <a mat-list-item routerLink="register" *ngIf="!_gs.loggedIn()">
+                <mat-icon>account_circle</mat-icon>Register
+            </a>
+            <a mat-list-item routerLink='login' *ngIf="!_gs.loggedIn()">
+                <mat-icon>login</mat-icon>Login
+            </a>
+            <a mat-list-item routerLink='login' *ngIf="_gs.loggedIn()">
+                <mat-icon>login</mat-icon>Logout
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <div class="container-fluid d-md-flex justify-content-between ">
+            <mat-toolbar>
+                <button mat-icon-button class="d-block d-md-none" (click)="drawer.toggle()">
+                    <mat-icon>menu</mat-icon>
+                </button>
+                <h1 class="p-2 d-block d-md-none" routerLink='home'>BlogApp</h1>
+
+                <span class="d-none d-md-block border-bottom border-left rounded p-1" routerLink='home'>BlogApp</span>
+                <span class="spacer"></span>
+                <a (click)='todash()' class="d-none d-md-block border-bottom border-left rounded p-1"
+                    routerLinkActive="active" *ngIf="_gs.loggedIn()">Dashboard</a>
+
+                <a routerLink="post" class="d-none d-md-block border-bottom border-left rounded p-1"
+                    routerLinkActive="active">Create</a>
+
+                <a routerLink="blogs" class="d-none d-md-block border-bottom border-left rounded p-1"
+                    routerLinkActive="active">Blogs</a>
+
+                <a routerLink="register" class="d-none d-md-block border-bottom border-left rounded p-1"
+                    routerLinkActive="active" *ngIf="!_gs.loggedIn()">Register</a>
+
+                <a routerLink="login" class="d-none d-md-block border-bottom border-left rounded p-1" routerLinkActive="active"
+                    *ngIf="!_gs.loggedIn()">Login</a>
+            </mat-toolbar>
+        </div>
+
+        <router-outlet></router-outlet>
+
+    </mat-sidenav-content>
+</mat-sidenav-container>

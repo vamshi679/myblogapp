@@ -1,0 +1,149 @@
+<style>
+    input[type="submit"]::-moz-focus-inner,
+    input[type="button"]::-moz-focus-inner {
+        border: 0;
+    }
+
+    :focus {
+        outline: none;
+    }
+
+    ::-moz-focus-inner {
+        border: 0;
+    }
+
+    h1 {
+        font-size: 25px;
+        display: inline-block;
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    h2,
+    span,
+    .row {
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    p {
+        font-size: 16px;
+        text-align: justify;
+        line-height: 1.6em;
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    .nodata,
+    .row {
+        border-radius: 7px;
+    }
+
+    .nodata {
+        position: absolute;
+        top: 70%;
+        left: 50%;
+        transform: translate(-70%, -50%);
+    }
+
+    small {
+        font-size: 13px;
+        margin-left: 5px;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row p-2 shadow-sm">
+        <div class="container">
+            <div class="d-flex justify-content-end">
+                <button mat-button type="button">Comments</button>
+                <button mat-button type="button">Updates</button>
+                <button mat-button type="button">Community</button>
+                <button mat-button class="float-right" [matMenuTriggerFor]="adminMenu">Admin <mat-icon>
+                        keyboard_arrow_down</mat-icon></button>
+                <mat-menu #adminMenu="matMenu" xPosition="before">
+                    <button mat-menu-item type="button">Profile</button>
+                    <button mat-menu-item type="button" (click)="logout()">Logout</button>
+                </mat-menu>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid mt-3">
+        <mat-tab-group dynamicHeight animationDuration="0ms" mat-align-tabs="center">
+            <mat-tab label='Pending...'>
+                <div class="container" *ngFor="let post of allposts">
+                    <div class="row mt-2">
+                        <div class="col-md-12">
+                            <h1 class="">{{post.blogTitle}}</h1>
+                            <small>
+                                <span class="text-info ml-1">{{post.category}}</span>
+                                <span class="text-muted ml-1">@{{post.userName}}</span>
+                                <span class="text-muted ml-1">{{post.postdate}}</span>
+                                <b class="ml-1 text-info"><i class="fa fa-clock-o"></i></b>
+                            </small>
+                        </div>
+                    </div>
+                    <div class="content mt-2">
+                        <p [innerHTML]="post.description"></p>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button mat-button type="button" class="text-success"
+                                    (click)="approveblog(post)">Approve</button>
+                                <button mat-button color="warn" type="button" class="ml-1"
+                                    (click)="rejectblog(post)">Reject</button>
+                                <button mat-button color="primary" type="button" class="ml-1"
+                                    (click)="likepost(post.blogId)">Likes</button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </mat-tab>
+            <mat-tab label='Approved'>
+                <div class="container" *ngFor="let post of allposts1">
+                    <div class="row mt-2">
+                        <div class="col-md-12">
+                            <h1 class="">{{post.blogTitle}}</h1>
+                            <small>
+                                <span class="text-info ml-1">{{post.category}}</span>
+                                <span class="text-muted ml-1">@{{post.userName}}</span>
+                                <span class="text-muted ml-1">{{post.postdate}}</span>
+                                <b class="ml-1 text-success"><i class="fa fa-check"></i></b>
+                            </small>
+                        </div>
+                    </div>
+                    <div class="content mt-2">
+                        <p [innerHTML]="post.description"></p>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button mat-button color="primary" type="button" class=""
+                                    (click)="likepost(post.blogId)">Likes</button>
+                                <button mat-button type="button" class="ml-1">Comments</button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </mat-tab>
+            <mat-tab label='Rejected'>
+                <div class="container" *ngFor="let post of allposts2">
+                    <div class="row mt-2">
+                        <div class="col-md-12">
+                            <h1>{{post.blogTitle}}</h1>
+                            <small>
+                                <span class="text-info ml-1">{{post.category}}</span>
+                                <span class="text-muted ml-1">@{{post.userName}}</span>
+                                <span class="text-muted ml-1">{{post.postdate}}</span>
+                                <b class="ml-1 text-danger"><i class="fa fa-times"></i></b>
+                            </small>
+                        </div>
+                    </div>
+                    <div class="content mt-3">
+                        <p [innerHTML]="post.description"></p>
+                    </div>
+                    <hr>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+
+</div>
