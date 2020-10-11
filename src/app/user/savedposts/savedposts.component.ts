@@ -29,7 +29,7 @@ export class SavedpostsComponent implements OnInit {
       this.imgURL
     }
 
-    if(localStorage.getItem('token') !== 'xx.yy.zz'){
+    if(localStorage.getItem('userobj') !== null || undefined){
     this._gs.getAllSavedPosts(this.userName).subscribe(resp=>{
       if(resp['message']=='no saved posts'){
         this.nodata = true;
