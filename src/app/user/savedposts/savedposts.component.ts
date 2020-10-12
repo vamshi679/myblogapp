@@ -10,50 +10,52 @@ import { GlobalService } from 'src/app/helper/global.service';
 })
 export class SavedpostsComponent implements OnInit {
 
-  userName:string
-  savedlist:any;
-  nodata:boolean; 
-  nodata1:boolean;
-  userdetails:any;
-  imgURL:string | ArrayBuffer='/assets/images/placeholder1.jpg';
+  userName: string
+  savedlist: any;
+  nodata: boolean;
+  nodata1: boolean;
+  userdetails: any;
+  imgURL: string | ArrayBuffer = '/assets/images/placeholder1.jpg';
 
-  constructor(private _gs:GlobalService, private _router:Router) { }
+  constructor(private _gs: GlobalService, private _router: Router) { }
 
   ngOnInit(): void {
-    this.userName=localStorage.getItem('userobj')
-    this.userdetails=JSON.parse(localStorage.getItem('userdet'));
-    if(this.userdetails.displayPic){
-      this.imgURL=this.userdetails.displayPic
+    this.userName = localStorage.getItem('userobj')
+    this.userdetails = JSON.parse(localStorage.getItem('userdet'));
+    if (this.userdetails.displayPic) {
+      this.imgURL = this.userdetails.displayPic
     }
-    else{
+    else {
       this.imgURL
     }
 
-<<<<<<< HEAD
     if (localStorage.getItem('userobj') !== null || undefined) {
-      this._gs.getAllSavedPosts(this.userName).subscribe(resp=>{
-        if(resp['message']=='no saved posts'){
+      this._gs.getAllSavedPosts(this.userName).subscribe(resp => {
+        if (resp['message'] == 'no saved posts') {
           this.nodata = true;
         }
-        else{
-          this.savedlist=resp['message']
-          this.nodata1=true;
+        else {
+          this.savedlist = resp['message']
+          this.nodata1 = true;
         }
       })
-=======
-    if(localStorage.getItem('userobj') !== null || undefined){
-    this._gs.getAllSavedPosts(this.userName).subscribe(resp=>{
-      if(resp['message']=='no saved posts'){
-        this.nodata = true;
-      }
-      else{
-        this.savedlist=resp['message']
-        this.nodata1=true;
-      }
-    })
->>>>>>> 737809f2b30b9fa3f0041f07db49d4979bc163fe
     }
+
+    if (localStorage.getItem('userobj') !== null || undefined) {
+      this._gs.getAllSavedPosts(this.userName).subscribe(resp => {
+        if (resp['message'] == 'no saved posts') {
+          this.nodata = true;
+        }
+        else {
+          this.savedlist = resp['message']
+          this.nodata1 = true;
+        }
+      })
+    }
+  
+  
   }
+
 
   todash() {
     if (localStorage.getItem('userobj') !== null || undefined) {
@@ -64,7 +66,7 @@ export class SavedpostsComponent implements OnInit {
     }
   }
 
-  logout(){
+  logout() {
     this._gs.logout();
   }
 
