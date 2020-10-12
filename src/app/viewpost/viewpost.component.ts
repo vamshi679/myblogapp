@@ -68,15 +68,17 @@ export class ViewpostComponent implements OnInit, OnChanges {
       }
     })
 
-    this._gs.getAllSavedPosts(this.user).subscribe(list1 => {
-      var idslist = list1['ids']
-      for (let j of idslist) {
-        if (this.blgid == j) {
-          this.hide1 = !this.hide1;
-        }
-      }
-    })
+    if (localStorage.getItem('userobj') !== null || undefined) {
 
+      this._gs.getAllSavedPosts(this.user).subscribe(list1 => {
+        var idslist = list1['ids']
+        for (let j of idslist) {
+          if (this.blgid == j) {
+            this.hide1 = !this.hide1;
+          }
+        }
+      })
+    }
 
     this._gs.getAllComments().subscribe(msg3 => {
       this.allcomments = msg3['message']
@@ -136,11 +138,11 @@ export class ViewpostComponent implements OnInit, OnChanges {
     if (obj3 !== null || undefined) {
       this._gs.commentPost(obj3).subscribe(msg2 => {
         if (msg2.status == 400) {
-          console.log('err in adding comment');
+          // console.log('err in adding comment');
           this._snackObj.snackBarForCmntfail();
         }
         else {
-          console.log('success', msg2['message']);
+          // console.log('success', msg2['message']);
           this._snackObj.snackBarForCmntsuccess();
           this.ngOnChanges();
         }
@@ -157,7 +159,7 @@ export class ViewpostComponent implements OnInit, OnChanges {
     this.dialog.open(SharedialogComponent, {
       height: '260px',
       width: '450px',
-      data:url
+      data: url
     });
 
   }

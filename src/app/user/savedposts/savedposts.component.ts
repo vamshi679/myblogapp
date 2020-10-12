@@ -29,15 +29,17 @@ export class SavedpostsComponent implements OnInit {
       this.imgURL
     }
 
-    this._gs.getAllSavedPosts(this.userName).subscribe(resp=>{
-      if(resp['message']=='no saved posts'){
-        this.nodata = true;
-      }
-      else{
-        this.savedlist=resp['message']
-        this.nodata1=true;
-      }
-    })
+    if (localStorage.getItem('userobj') !== null || undefined) {
+      this._gs.getAllSavedPosts(this.userName).subscribe(resp=>{
+        if(resp['message']=='no saved posts'){
+          this.nodata = true;
+        }
+        else{
+          this.savedlist=resp['message']
+          this.nodata1=true;
+        }
+      })
+    }
   }
 
   todash() {
