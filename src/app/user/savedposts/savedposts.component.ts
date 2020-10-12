@@ -29,6 +29,7 @@ export class SavedpostsComponent implements OnInit {
       this.imgURL
     }
 
+<<<<<<< HEAD
     if (localStorage.getItem('userobj') !== null || undefined) {
       this._gs.getAllSavedPosts(this.userName).subscribe(resp=>{
         if(resp['message']=='no saved posts'){
@@ -39,6 +40,18 @@ export class SavedpostsComponent implements OnInit {
           this.nodata1=true;
         }
       })
+=======
+    if(localStorage.getItem('userobj') !== null || undefined){
+    this._gs.getAllSavedPosts(this.userName).subscribe(resp=>{
+      if(resp['message']=='no saved posts'){
+        this.nodata = true;
+      }
+      else{
+        this.savedlist=resp['message']
+        this.nodata1=true;
+      }
+    })
+>>>>>>> 737809f2b30b9fa3f0041f07db49d4979bc163fe
     }
   }
 
